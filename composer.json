@@ -1,0 +1,30 @@
+{
+  "name": "phptype/date",
+  "description": "Date extension methods.",
+  "authors": [
+    {
+      "name": "Bilge",
+      "email": "bilge@scriptfusion.com"
+    }
+  ],
+  "require": {
+    "php": "^7",
+    "scriptfusion/static-class": "^1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6"
+  },
+  "autoload": {
+    "psr-4": {
+      "ScriptFUSION\\Type\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ScriptFUSIONTest\\Type\\": "test"
+    }
+  },
+  "scripts": {
+    "test": "phpunit -c test"
+  }
+}
