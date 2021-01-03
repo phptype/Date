@@ -19,7 +19,8 @@ final class Date
     public static function adapt($date): string
     {
         $date = is_string($date) ? new \DateTimeImmutable($date) : $date;
-        $diff = $date->diff(new \DateTime);
+        $diff = (new \DateTime)->diff($date);
+        $days = $diff->days * ($diff->invert ? -1 : 1);
 
         // Absolute.
         if ($diff->days > 30) {
@@ -27,12 +28,15 @@ final class Date
         }
 
         // Relative.
-        switch ($diff->days) {
+        switch ($days) {
+            case -1:
+                return 'yesterday';
+
             case 0:
                 return 'today';
 
             case 1:
-                return 'yesterday';
+                return 'tomorrow';
         }
 
         return "$diff->days days";

@@ -35,4 +35,14 @@ final class DateTest extends TestCase
     {
         self::assertSame(($date = new \DateTime('-31 day'))->format('M Y'), Date::adapt($date));
     }
+
+    public function testTomorrow(): void
+    {
+        self::assertSame('tomorrow', Date::adapt(new \DateTime('1 day')));
+    }
+
+    public function testDayAfterTomorrow(): void
+    {
+        self::assertSame('2 days', Date::adapt(new \DateTime('2 day')));
+    }
 }
