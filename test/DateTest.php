@@ -23,12 +23,12 @@ final class DateTest extends TestCase
 
     public function testLastWeek(): void
     {
-        self::assertSame('7 days', Date::adapt(new \DateTime('-7 day')));
+        self::assertSame('7 days ago', Date::adapt(new \DateTime('-7 day')));
     }
 
     public function test30DaysAgo(): void
     {
-        self::assertSame('30 days', Date::adapt(new \DateTime('-30 day')));
+        self::assertSame('30 days ago', Date::adapt(new \DateTime('-30 day')));
     }
 
     public function test31DaysAgo(): void

@@ -16,29 +16,25 @@ final class Date
      *
      * @return string Absolute or relative date.
      */
-    public static function adapt($date): string
+    public static function adapt(string|\DateTimeInterface $date): string
     {
         $date = is_string($date) ? new \DateTimeImmutable($date) : $date;
         $diff = (new \DateTime)->diff($date);
-        $days = $diff->days * ($diff->invert ? -1 : 1);
+        // If diff less than one whole second from next day, round up to whole day.
+        $absDays = ($diff->days + (int)(($diff->h * 60 ** 2 + $diff->i * 60 + $diff->s + ceil($diff->f)) / 86400));
+        $days = $absDays * ($diff->invert ? -1 : 1);
 
         // Absolute.
-        if ($diff->days > 30) {
+        if ($absDays > 30) {
             return $date->format('M Y');
         }
 
         // Relative.
-        switch ($days) {
-            case -1:
-                return 'yesterday';
-
-            case 0:
-                return 'today';
-
-            case 1:
-                return 'tomorrow';
-        }
-
-        return "$diff->days days";
+        return match ($days) {
+            -1 => 'yesterday',
+            0 => 'today',
+            1 => 'tomorrow',
+            default => "$absDays days" . ($days < 0 ? ' ago' : ''),
+        };
     }
 }
