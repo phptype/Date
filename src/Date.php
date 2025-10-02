@@ -35,7 +35,7 @@ final class Date
             -1 => 'yesterday',
             0 => 'today',
             1 => 'tomorrow',
-            default => "$absDays days" . ($days < 0 ? ' ago' : ''),
+            default => "$absDays days",
         };
     }
 }
